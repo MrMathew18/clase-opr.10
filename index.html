@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Un fetch</title>
+        <style>
+             @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&display=swap');
+
+            *{
+                margin:0;
+                padding:0;
+            }
+            :root{
+                /* los colores del eva01 jej*/
+                --fondo:#3f6d4e;
+                --figura:#734f9a;
+                --destaque:#1d1a2f;
+
+            }
+            body {
+                font-family: "Libre Baskerville", sans-serif;
+                background: var(--fondo);
+                color: var(--figura);
+            }
+            h1 {
+                font-family: "Libre Baskerville", sans-serif;
+                text-align: center;
+                font-size: calc(0.5rem + 2vw + 2vh);
+                margin: 3vw auto;
+                line-height: 3vw;
+            }
+
+
+            #escondido{
+                display:none;
+            }
+            div.contenedor{
+                width: calc(100% - 5%);
+                max-width: 800px;
+                margin: 5% auto;
+                padding:2%;
+                background: #fff;
+                border-radius: 15px;
+
+            }
+            p {
+                text-align: center;
+                margin-top: 30x;
+                margin-bottom: 30x;
+                border-bottom: 2px dotted var(--fondo);
+            }
+            ol, ul {
+                list-style-position: inside;
+                margin: 1rem 0;
+                width: 100%;
+                border-top: 4px solid var(--fondo);
+            }
+
+            ol li, ul li {
+                border-bottom: 2px solid var(--fondo);
+                padding: 0.6rem 0;
+            }
+
+            ol li:last-child {
+                border-bottom: 4px solid var(--fondo);
+            }
+
+            ol li a, ul li a{
+                margin-right:5%;
+                text-decoration: none;
+                color: var(--destaque);
+                transition: all ease 1s;
+            }
+            ol li a:hover {
+                letter-spacing: 0.1rem;
+                transition: all ease 1s;
+            }
+            ol li a:nth-child(1){
+               display: inline-block;
+               width: 50%;
+           }
+           figure {
+            width: 80%;
+            margin: 10% auto;
+           }
+           figure svg use[href="#bien"] {
+                animation: nombre 4s infinite alternate;
+            }
+            figure svg use[href="#mal"] {
+                animation: nombre 7s infinite alternate;
+            }
+
+
+             @keyframes nombre {
+                0% {
+                    fill: #8bd450;
+                    transform: rotate(359deg);
+                    transform-origin: center;
+                }
+                100% {
+                    fill: #965fd4;
+                    transform-origin: center;
+                }
+            }
+
+            #first {
+                display: block;
+            }
+
+            #second {
+                display: none;
+            }
+
+            @media screen and (min-width: 600px) {
+                #first {
+                    display: none;
+                }
+
+                #second {
+                    display: block;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" id="escondido">
+            <symbol id="bien" width="16" height="16" viewBox="0 0 16 16">
+                <path xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M8 0C6.89543 0 6 0.895431 6 2V2.0359L5.96891 2.01795C5.01233 1.46566 3.78915 1.79341 3.23686 2.75C2.68458 3.70659 3.01233 4.92977 3.96891 5.48205L4 5.5L3.96891 5.51795C3.01233 6.07023 2.68458 7.29342 3.23686 8.25C3.78915 9.20658 5.01233 9.53434 5.96891 8.98205L6 8.9641V9C6 10.1046 6.89543 11 8 11C9.10457 11 10 10.1046 10 9V8.9641L10.0311 8.98205C10.9877 9.53434 12.2109 9.20658 12.7631 8.25C13.3154 7.29342 12.9877 6.07023 12.0311 5.51795L12 5.5L12.0311 5.48205C12.9877 4.92977 13.3154 3.70659 12.7631 2.75C12.2109 1.79341 10.9877 1.46566 10.0311 2.01795L10 2.0359V2C10 0.895431 9.10457 0 8 0ZM7.99995 7C8.82838 7 9.49995 6.32843 9.49995 5.5C9.49995 4.67157 8.82838 4 7.99995 4C7.17152 4 6.49995 4.67157 6.49995 5.5C6.49995 6.32843 7.17152 7 7.99995 7Z"/>
+                <path xmlns="http://www.w3.org/2000/svg" d="M7 16H6C3.23858 16 1 13.7614 1 11V10H2C4.76142 10 7 12.2386 7 15V16Z"/>
+                <path xmlns="http://www.w3.org/2000/svg" d="M10 16H9V15C9 12.2386 11.2386 10 14 10H15V11C15 13.7614 12.7614 16 10 16Z"/>
+            </symbol>
+            <symbol id="mal" width="16" height="16" viewBox="0 0 16 16">
+                <path xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M2 6C2 2.68629 4.68629 0 8 0C11.3137 0 14 2.68629 14 6V16H12L10 14L8 16L6 14L4 16H2V6ZM7 6C7 6.55228 6.55228 7 6 7C5.44772 7 5 6.55228 5 6C5 5.44772 5.44772 5 6 5C6.55228 5 7 5.44772 7 6ZM10 7C10.5523 7 11 6.55228 11 6C11 5.44772 10.5523 5 10 5C9.44772 5 9 5.44772 9 6C9 6.55228 9.44772 7 10 7Z"/>
+            </symbol>
+        </svg>
+        <div class="contenedor">
+        <h1>Hola mundo</h1>
+        <ol id="estudiantes"></ol>
+        <figure id="first">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 32">
+                    <g>
+                        <use href="#bien" fill="#00a" />
+                        <use href="#mal" fill="#a00" x="16" />
+                    </g>
+            </svg>
+        </figure>
+        <figure id="second">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 16">
+                    <g>
+                        <use href="#bien" />
+                        <use href="#mal" x="16" />
+                    </g>
+            </svg>
+        </figure>
+        
+
+    <div id="contenedor">, 
+    
+    <h1> y te ries cuando dice plop</h1>
+    <p> Una ave es un animal vertebrado con alas, plumas y pico. Estos ponen huevos que incuban hasta que eclosionan. </p>
+    <p> En chile hay mas de 500 especies, y tan solo 13 son endemicas a Chile. </p>
+    <h2>Accipitriformes?</h2>
+    <p>Aves rapaces Diurnas, previamente se vinculaban con los halcones, falconiformes, pero esto se cambio devido a un estudio de ADN. </p>
+    <ol id="uno"></ol>
+    
+    <h2>Procellariiformes?</h2>
+    <p>Aves que comen en mar abierto, tienen un conducto en el pico, con los que estornudan la sal de su comida.</p>
+    <ol id="dos"></ol>
+    
+    <h2>Charadriiformes?</h2>
+    <p>Todas están relacionadas (de una u otra forma) con el agua, tanto dulce como salada. Se les conoce como aves playeras.</p>
+    <ol id="tres"></ol>
+    
+    <h2>Passeriformes?</h2>
+    <p> Los paseriformes presentan una característica disposición dactilar. Tienen cuatro dedos, tres dirigidos hacia delante y otro  hacia atrás. Es como el orden con mas pajaros, y se les conoce como pajaros. </p>
+    <ol id="cuatro"></ol>
+
+    <h2>Rheiformes?</h2>
+    <p> ñandu </p>
+    <ol id="cinco"></ol>
+
+    <h2>Pelecaniformes?</h2>
+    <p> Los que tienen forma de pelícano.</p>
+    <ol id="seis"></ol>
+
+    <h2>Podicipediformes?</h2>
+    <p>Los podicipédidos son aves de tamaño que va entre medio y grande que habitan principalmente en aguas dulces. Presentan las patas palmeadas y son excelentes nadadores y buceadores. (wikipedia (enverdad todo esto es wikipedia))</p>
+    <ol id="siete"></ol>
+
+    <h2>Psittaciformes?</h2>
+    <p> Los loros son aves de pequeño y gran tamaño, que poseen un pico muy característico por su forma curvada. Ellos cantan</p>
+    <ol id="ocho"></ol>
+
+    </div>
+
+        </div>
+        <script>
+            fetch("https://raw.githubusercontent.com/MrMathew18/clase-opr.10/refs/heads/main/JSON.json")
+                .then((respuesta) => {
+                    if (!respuesta.ok) {
+                        throw new Error("Error HTTP: " + respuesta.status);
+                    }
+                    return respuesta.json();
+                })
+                .then((datos) => {
+                    var pajaro = datos.data;
+                    console.log("Datos recibidos:", pajaro);
+                    const uno = document.getElementById("uno");
+                    
+                    const dos = document.getElementById("dos");
+
+                    const tres = document.getElementById("tres");
+
+                    const cuatro = document.getElementById("cuatro");
+
+                    const cinco = document.getElementById("cinco");
+
+                    const seis = document.getElementById("seis");
+
+                    const siete = document.getElementById("siete");
+
+                    const ocho = document.getElementById("ocho");
+
+                    //repita
+                    pajaro.forEach((x) => {
+                        if (x.info.order.value.includes("Accipitriformes")) {
+                            uno.innerHTML += `<li><img src="${x.image.url}" class="tiny"/> ${x.names.spanish}</li>`;
+                      
+                    }
+                    if (x.info.order.value.includes("Procellariiformes")) {
+                            dos.innerHTML += `<li><img src="${x.image.url}" class="tiny"/> ${x.names.spanish}</li>`;
+                      
+                    }
+                    if (x.info.order.value.includes("Charadriiformes")) {
+                            tres.innerHTML += `<li><img src="${x.image.url}" class="tiny"/> ${x.names.spanish}</li>`;
+
+                    }
+                    if (x.info.order.value.includes("Passeriformes")) {
+                            cuatro.innerHTML += `<li><img src="${x.image.url}" class="tiny"/> ${x.names.spanish}</li>`;
+
+                    }
+
+                    if (x.info.order.value.includes("Rheiformes")) {
+                            cinco.innerHTML += `<li><img src="${x.image.url}" class="tiny"/> ${x.names.spanish}</li>`;
+
+                    }
+
+                    if (x.info.order.value.includes("Pelecaniformes")) {
+                            seis.innerHTML += `<li><img src="${x.image.url}" class="tiny"/> ${x.names.spanish}</li>`;
+
+                    }
+                    if (x.info.order.value.includes("Podicipediformes")) {
+                            siete.innerHTML += `<li><img src="${x.image.url}" class="tiny"/> ${x.names.spanish}</li>`;
+
+                    }
+                    if (x.info.order.value.includes("Psittaciformes")) {
+                            ocho.innerHTML += `<li><img src="${x.image.url}" class="tiny"/> ${x.names.spanish}</li>`;
+
+                    }
+                });
+            })
+                .catch((error) => {
+                    console.error("Algo salió mal:", error);
+                });
+        </script>
+    </body>
+
+</html>
